@@ -26,7 +26,18 @@ public class Encrypt {
             }
             final SecretKey key = new SecretKeySpec(keyBytes, "DESede");
             final IvParameterSpec iv = new IvParameterSpec(new byte[BYTE_SIZE]);
+
+            // A2 - FIX 1
+//            SecureRandom random = new SecureRandom();
+//            byte[] randomBytes  = new byte[16];
+//            random.nextBytes(randomBytes);
+//            GCMParameterSpec iv   = new GCMParameterSpec(128, randomBytes);
+
             final Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
+
+            //A2 - FIX 2-3
+//            final Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
 
             final byte[] plainTextBytes = message.getBytes("utf-8");
